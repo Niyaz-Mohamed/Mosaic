@@ -3,6 +3,12 @@
     --baseCol2: white;
 }
 
+body {
+    margin: 0px;
+}
+
 header {
     text-align: center;
+    padding: 100px;
+    background: var(--baseCol1);
 }

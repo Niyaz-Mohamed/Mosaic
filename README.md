@@ -1,6 +1,6 @@
 Mosiac
 ======
-![Logo](static/git_logo.jpg)
+![Logo](static/app_logo.jpg)
 ======
 
 A simple web app to convert normal images to pixel art, built with [Flask](https://flask.palletsprojects.com/en/2.0.x/)
