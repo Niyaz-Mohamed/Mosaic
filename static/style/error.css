@@ -26,6 +26,7 @@ body {
     font-size: 74px;
     background: -webkit-linear-gradient(45deg,#6dd5ed,#2193b0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 30px;
 }
@@ -33,4 +34,10 @@ body {
 #errorDesc {
     font-size: 16px;
     font-weight: normal;
+    margin-bottom: 40px;
+}
+
+#errorGif {
+    max-width: 100px;
+    max-height: auto;
 }
