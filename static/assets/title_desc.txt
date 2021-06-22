@@ -1,0 +1,1 @@
+Mosiac allows you to take a high-definition image and convert it to pixel art. You can freely customize the degree of pixelization 

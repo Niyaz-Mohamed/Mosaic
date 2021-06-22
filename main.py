@@ -9,7 +9,9 @@ app=Flask(__name__)
 
 @app.route('/')
 def root():
-    return render_template('index.html')
+    with open('./static/assets/title_desc.txt', 'r') as file:
+        title_desc = file.read().replace('\n', '')
+    return render_template('index.html',title_desc=title_desc)
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
