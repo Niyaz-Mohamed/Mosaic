@@ -3,60 +3,6 @@ body {
     min-width: 1000px;
 }
 
-.pixelBtn {
-    font-size: 20px;
-    color: white !important;
-    background: black;
-    height: auto;
-    width: auto;
-    max-width: fit-content;
-    margin: 10px;
-    z-index: 2;
-    /* font-family: 'VT323'; */
-    
-    position: relative;
-    display: block;
-    text-transform: uppercase;
-    
-    padding: 15px 20px;
-    transition: var(--buttonAnim);
-}
-  
-.pixelBtn::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: -10px;
-    right: -10px;
-    background: black;
-    z-index: -1;
-    transition: var(--buttonAnim);
-}
-  
-.pixelBtn::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 4px;
-    bottom: 4px;
-    left: -6px;
-    right: -6px;
-    background: black;
-    z-index: -1;
-    transition: var(--buttonAnim);
-}
-
-.pixelBtn:hover, .pixelBtn:hover::after, .pixelBtn:hover::before {
-    color: black !important;
-    background: white;
-}
-
-.pixelBtn:hover {
-    transform: scale(1.1);
-}
-
 header {
     text-align: center;
 }
@@ -77,10 +23,18 @@ header {
 
 #navSection .desc {
     font-size: 26px;
-    margin: 50px auto;
     text-align: center;
     width: 100%;
     color: black;
+}
+
+#navSection .navContent {
+    width: 100%;
+    top: 30%;
+}
+
+#navSection .desc {
+    margin-bottom: 50px;
 }
 
 #headDesc {
@@ -90,14 +44,54 @@ header {
     padding: 50px;
     background: var(--deep_blue);
     color: white;
-
     font-size: 20px;
 }
 
+#mainAppDesc {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+#examples {
+    width: 100%;
+    min-height: 500px;
+    background: var(--deep_red);
+    border-bottom: 10px dashed var(--deep_blue);
+    color: white;
+}
+
+.leftBorder {
+    width: 50%;
+    height: auto;
+    content: '';
+    float: left;
+    top: 0 !important;
+    border-top: 10px dashed var(--sandpaper);
+}
+
+.rightBorder {
+    width: 50%;
+    height: auto;
+    content: '';
+    float: right;
+    top: 0 !important;
+    border-top: 10px dashed var(--deep_blue);
+}
+
+/* Editor Portion */
+
+#pixelator {
+    width:100%;
+    min-height: 100%;
+    padding: 75px;
+    background: var(--deep_blue);
+}
+
   /*TODO:
-  Edit button text, 
+  Chnage icon: Transparent O center
   test image form
   Add global letter spacing
   Add a common template html file
+  bully gamergirls
   */
 

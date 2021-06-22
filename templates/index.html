@@ -6,21 +6,40 @@
 {% block body %}
     <header>
         <div id='navSection' class='centerContainer'>
-            <img src='../static/assets/word_logo.png' id='appIcon'>
-            <p class='desc'>Creating pixel art from images</p>
-            <nav class='centerContainer'>
-                <a href='https://github.com/Niyaz-Mohamed/Mosiac' class='pixelBtn'>
-                    <span>Github</span>
-                </a>
-            </nav>
+            <div class='navContent'>
+                <img src='../static/assets/word_logo.png' id='appIcon'>
+                <p class='desc'>Creating pixel art from images</p>
+                <nav class='centerContainer'>
+                    <a href='https://github.com/Niyaz-Mohamed/Mosiac' class='pixelBtn'>
+                        <span>Github</span>
+                    </a>
+                </nav>
+            </div>
         </div>
         <div id='headDesc' class='centerContainer'>
-            <div id='appIntro'>
-                <p>Mosiac allows you to take a high-definition image and convert it to pixel art. You can freely customize the degree of pixelixation </p>
+            <div id='appIntro' class='centerContainer'>
+                <p id='mainAppDesc'>{{title_desc}}</p>
+                <a href='#pixelator' class='pixelBtn redBtn'>Try It!</a>
             </div>
         </div>
         </header>
     </header>
+    <div id='examples'>
+        <div class='leftBorder'></div>  
+        <div class='rightBorder'></div>
+        <div class='content'>
+            <div class='centerContainer'>
+                <p class='title'>Examples</p>
+                <p>Insert</p>
+                <p class='subtitle'>Convertion</p>
+                <p>Insert</p>
+                <p class='subtitle'>Comparison</p>    
+                <p>Insert</p>
+            </div>
+        </div>
+    </div>
+    <div id='pixelator'>
+    </div>
 {% endblock %}
 
 
