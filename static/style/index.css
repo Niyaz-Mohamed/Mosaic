@@ -57,6 +57,10 @@ body {
     transform: scale(1.1);
 }
 
+.redBtn, .redBtn::after,.redBtn::before {
+    background: tomato;
+} 
+
 header {
     text-align: center;
 }
@@ -73,6 +77,7 @@ header {
     float: left;
     padding: 50px;
     background: var(--sandpaper);
+    border-bottom: 10px solid var(--deep_blue);
 }
 
 #navSection .desc {
@@ -89,14 +94,32 @@ header {
     padding: 50px;
     background: var(--deep_blue);
     color: white;
-
     font-size: 20px;
+    border-bottom: 10px solid var(--sandpaper);
+}
+
+#mainAppDesc {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+#examples {
+    width: 100%;
+    min-height: 500px;
+    background: var(--cardillac);
+}
+
+#pixelator {
+    width:100%;
+    min-height: height 500px;
+    background: var(--deep_blue);
 }
 
   /*TODO:
-  Edit button text, 
+  Chnage icon: Transparent O center
   test image form
   Add global letter spacing
   Add a common template html file
+  bully gamergirls
   */
 
