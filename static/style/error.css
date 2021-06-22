@@ -16,8 +16,6 @@ body {
     padding-right: 100px;
     text-align: center;
     background-color: white;
-    box-shadow: 5px 10px 18px #1d1d1d;
-
     min-width: 450px;
     min-height: 240px;
 }
@@ -32,7 +30,7 @@ body {
 }
 
 #errorDesc {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
     margin-bottom: 40px;
 }

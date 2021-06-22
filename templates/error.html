@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel='stylesheet' href='../static/style/base.css'>
-        <link rel='stylesheet' href='../static/style/error.css'>
-        <title>Mosiac</title>
-    </head>
-    <body class='centerContainer'>
-        <div id='error'>
-            <h2 id='errorCode'>{{(error['code']|string)+' Error'}} </h2>
-            <h4 id='errorDesc'>{{error['description']}}</h4>
-            <img id='errorGif' src='../static/assets/google_dino.gif'>
-        </div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block head %}
+    <link rel='stylesheet' href='../static/style/error.css'>
+{% endblock %}
+{% block body %}
+    <div id='error' class='shadowed'>
+        <h2 id='errorCode'>{{(error['code']|string)+' Error'}} </h2>
+        <h4 id='errorDesc'>{{error['description']}}</h4>
+        <img id='errorGif' src='../static/assets/google_dino.gif'>
+    </div>
+{% endblock %}
