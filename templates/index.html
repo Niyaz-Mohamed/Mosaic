@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Mosiac</title>
-        <meta charset="utf-8">
-        <link rel='stylesheet' href='../static/style/base.css'>
-        <link rel='stylesheet' href='../static/style/index.css'>
-    </head>
-    <body>
-        <header>
+{% extends "base.html" %}
+{% block head %}
+    <link rel='stylesheet' href='../static/style/index.css'>
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div id='navSection' class='centerContainer'>
             <img src='../static/assets/word_logo.png' id='appIcon'>
             <p class='desc'>Creating pixel art from images</p>
-            <nav>
+            <nav class='centerContainer'>
                 <a href='https://github.com/Niyaz-Mohamed/Mosiac' class='pixelBtn'>
-                    <span>
-                        Github
-                    </span>
+                    <span>Github</span>
                 </a>
             </nav>
-        </header>
-        <div id='mainbody'>
-            
         </div>
-        <footer>
+        <div id='headDesc' class='centerContainer'>
+            <div id='appIntro'>
+                <p>Mosiac allows you to take a high-definition image and convert it to pixel art. You can freely customize the degree of pixelixation </p>
+            </div>
+        </div>
+        </header>
+    </header>
+{% endblock %}
 
-        </footer>
-    </body>
-</html>
 
