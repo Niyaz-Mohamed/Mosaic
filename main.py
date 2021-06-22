@@ -18,7 +18,7 @@ def root():
 
 @app.route('/base')
 def loadBase():
-    return render_template('base.html')
+    return render_template('base.html',noLoadFooter=True)
 
 @app.route('/editor')
 def openEditor():
@@ -29,3 +29,8 @@ def imageLib():
     return render_template('library.html')
 
 app.run(host='0.0.0.0', port=8080, debug=True)
+
+#TODO: 
+#Add base footer
+#Chage icon: Transparent O center
+#Test image form

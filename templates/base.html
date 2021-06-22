@@ -11,7 +11,23 @@
         {% block body %}
         <p>Shh, you saw nothing...</p>
         {% endblock %}
+        {% if noLoadFooter is defined %}
+        {% else %}
+        {% block footer %}
         <footer>
+            <div id='footerContent' class='centerContainer'>
+                <div id='copyright' class='centerContainer'>
+                    <p id='copyrightText'>
+                        ©2021 by Mohamed Shahul Hameed Niyaz. Do not use any portion of this project without prior permission from the author</p>
+                </div> 
+                <div id="footerLogoLink">
+                    <a href="https://github.com/Niyaz-Mohamed">
+                        <img src='../static/assets/github_link_icon.png' id='footerLogo'>
+                    </a>
+                </div>
+            </div>
         </footer>
+        {% endblock %}
+        {% endif %}
     </body>
 </html> 
