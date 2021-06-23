@@ -1,6 +1,8 @@
 from flask import Flask
-from flask import render_template, request, json
+from flask import render_template, request, json, session
 from werkzeug.exceptions import HTTPException
+
+import os, json
 
 app=Flask(__name__)
 
@@ -9,11 +11,13 @@ def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def root():
+
     title_desc="""Mosiac allows you to take a high-definition image and convert it to pixel art.\n 
     It provides features to freely control the degree of pixelization, make an image greyscale, 
     or change the palette used by the image."""
+
     return render_template('index.html',title_desc=title_desc)
 
 @app.route('/base')

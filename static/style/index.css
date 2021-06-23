@@ -85,6 +85,7 @@ header {
     min-height: 100%;
     padding: 75px;
     background: var(--deep_blue);
+    border-bottom: 10px dashed var(--mod_white);
 }
 
 
