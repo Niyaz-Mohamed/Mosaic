@@ -31,6 +31,4 @@ def imageLib():
 app.run(host='0.0.0.0', port=8080, debug=True)
 
 #TODO: 
-#Add base footer
-#Chage icon: Transparent O center
 #Test image form
