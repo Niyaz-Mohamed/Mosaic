@@ -4,7 +4,18 @@
 {% endblock %}
 {% block body %}    
     <header class='centerContainer'>
-        <p id='editorTitle' class='title'>Mosiac Editor</p>
+        <div class='centerContainer'>
+            <img src='../static/assets/word_logo.png' id='appLogo'>
+        </div>
+        <div id='headerContent' class='centerContainer'>
+            <p id='editorTitle' class='title'>Editor</p>
+            <nav>
+                <a href='home' class='pixelBtn redBtn'>Home</a>
+                <a href='editor' class='pixelBtn'>Editor</a>
+                <a href='library' class='pixelBtn'>Library</a>
+                <a href='https://github.com/Niyaz-Mohamed/mosaic' class='pixelBtn'> Github</a>
+            </nav>
+        </div>
     </header>
     <div id='editorBody' class='centerContainer'>
 
@@ -12,14 +23,15 @@
             {% if filename == '' %}
             <p id='errorMsg'>{{errorMsg}}</p>
             {% else %}
-            <div id='uploadedImg'>
-                <img src='../static/uploads/{{filename}}'>
-            </div> 
+            <img src='../static/uploads/{{filename}}'>
+            <p id='filename'>{{filename}}</p>
             {% endif %}
         </div>
         
         <form method='POST' action='/editor' enctype="multipart/form-data">
-            <input type="file" accept='image/*'  name='file'>
+            <label id='mainImgUpload'>
+                <input type="file" accept='image/png, image/jpg, image/jpeg' name='file'>
+            </label> 
             <input type='submit' value='upload'>
         </form>
     </div>

@@ -25,7 +25,7 @@ def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
-@app.route('/')
+@app.route('/home')
 def root():
 
     title_desc="""Mosiac allows you to take a high-definition image and convert it to pixel art.\n 

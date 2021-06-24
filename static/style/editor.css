@@ -9,8 +9,38 @@ header {
     padding: 50px;
 }
 
+header div {
+    width: 100%
+}
+
+header p {
+    text-align: center;
+}
+
+header nav {
+    width: 100%;
+    height: 80px;
+    padding: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+header .pixelBtn {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+#appLogo {
+    width: 500px;
+    height: auto;
+}
+
 #editorTitle {
-    margin-top: 0px !important;
+    margin-top: 10px !important;
+    font-size: 34px !important;
+    letter-spacing: 7px;
+    font-weight: bolder;
+    width: 100%;
 }
 
 #editorBody {
@@ -26,7 +56,7 @@ header {
 
 #imgContainer {
     width: 100%;
-    padding: 75px;
+    padding: 20px;
     padding-bottom: 120px;
 }
 
@@ -37,9 +67,15 @@ header {
     letter-spacing: 8px;
 }
 
-#uploadedImg {
-    padding: 60px 30px;
-    background: white;
-    border: 5px solid var(--mod_white);
+#imgContainer img{
+    border: 8px dashed var(--mod_white);
+    width: 80vw;
+    height: auto;
+}
+
+#filename {
+    margin-top: 60px;
+    letter-spacing: 3px;
+    font-size: 26px;
 }
 
