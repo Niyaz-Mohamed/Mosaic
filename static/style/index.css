@@ -56,7 +56,7 @@ header {
     width: 100%;
     min-height: 500px;
     background: var(--deep_red);
-    border-bottom: 10px dashed var(--deep_blue);
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
     color: white;
 }
 
@@ -66,7 +66,7 @@ header {
     content: '';
     float: left;
     top: 0 !important;
-    border-top: 10px dashed var(--sandpaper);
+    border-top: var(--lego_width) dashed var(--sandpaper);
 }
 
 .rightBorder {
@@ -75,7 +75,7 @@ header {
     content: '';
     float: right;
     top: 0 !important;
-    border-top: 10px dashed var(--deep_blue);
+    border-top: var(--lego_width) dashed var(--deep_blue);
 }
 
 /* Editor Portion */
@@ -85,6 +85,7 @@ header {
     min-height: 100%;
     padding: 75px;
     background: var(--deep_blue);
+    border-bottom: var(--lego_width) dashed var(--mod_white);
 }
 
 

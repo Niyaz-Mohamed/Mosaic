@@ -1,0 +1,119 @@
+body {
+    align-items: baseline !important;
+    align-content: flex-start;
+}
+
+header {
+    background: var(--mod_white);
+    margin: 0px;
+    padding: 50px;
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
+}
+
+header div {
+    width: 100%
+}
+
+header p {
+    text-align: center;
+}
+
+header nav {
+    width: 100%;
+    height: 80px;
+    padding: 20px;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+header .pixelBtn {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+#appLogo {
+    width: 500px;
+    height: auto;
+}
+
+#headerTitle {
+    margin-top: 10px !important;
+    font-size: 34px !important;
+    letter-spacing: 7px;
+    font-weight: bolder;
+    width: 100%;
+}
+
+#editorBody {
+    width: 100%;
+    height: auto;
+    padding: 75px 75px;
+    border-bottom: var(--lego_width) dashed var(--mod_white);
+    background: var(--deep_blue);
+    color: white;
+    letter-spacing: 5px;
+}
+
+#imgContainer {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+#errorMsg {
+    width: 50%;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 8px;
+}
+
+#imgContainer img{
+    border: 8px solid var(--mod_white);
+    box-shadow: var(--box_shadow);
+    width: 80vw;
+    height: auto;
+    transform: rotate(-3deg);
+
+    transition: var(--buttonAnim);
+}
+
+#imgContainer img:hover {
+    transform: rotate(5deg) !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 10px 10px 4px !important;
+}
+
+#fileSize {
+    width: 100%;
+    font-size: 14px;
+}
+
+input[type='file'], input[type='submit'] {
+    display: none;
+}
+
+.imgUpload {
+    text-align: center;
+    letter-spacing: 3px;
+    font-size: 26px;
+    display: inline-block;
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#imgRefresh {
+    margin: 60px;
+}
+
+#imgRefresh p{
+    padding: 0px;
+    margin: 0px;
+    font-size: 22px;
+    letter-spacing: 3px;
+}
+
+#refreshIcon {
+    font-size: 26px;
+    font-weight: bolder;
+}
