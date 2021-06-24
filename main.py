@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 import os, json
 import urllib.request
 
-UPLOAD_FOLDER='./uploads'
+UPLOAD_FOLDER='./static/uploads'
 ALLOWED_EXTENSIONS={'png','jpg','jpeg'}
 
 app=Flask(__name__)
@@ -46,26 +46,29 @@ def runEditor():
 
     if request.method == 'POST':
         
-        print('request called')
-        if 'file' not in request.files:
-            errorMsg='Error: Form did not return Image'
-            flash('No file part')
-            return redirect(request.url)
-            
-        file=request.files['file']
+        try:
+            print('request called')
+            if 'file' not in request.files:
+                errorMsg='Error: Form did not return Image'
+                flash('No file part')
+                return redirect(request.url)
+                
+            file=request.files['file']
 
-        if file.filename =='':
-            errorMsg='Error: No file chosen'
-            flash('No selected file')
-            return redirect(request.url)
-            
-        if file and allowed_file(file.filename):
-            filename=secure_filename(file.filename)
-            print(filename)
-            try:
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-            except:
-                errorMsg('Error: Image Upload Failed')
+            if file.filename =='':
+                errorMsg='Error: No file chosen'
+                flash('No selected file')
+                return redirect(request.url)
+                
+            if file and allowed_file(file.filename):
+                filename=secure_filename(file.filename)
+                print(filename)
+                try:
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                except:
+                    errorMsg('Error: Image Upload Failed')
+        except:
+            errorMsg='Error: Please try again'
 
     return render_template('editor.html',filename=filename,errorMsg=errorMsg)
 
