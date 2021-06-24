@@ -1,11 +1,14 @@
-from flask import Flask
-from flask import render_template, request, flash, request, redirect, url_for
+#from flask import Flask
+#from flask import render_template, request, flash, request, redirect, url_for
+from flask import *
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
+import skimage 
 
 import os, json
 import urllib.request
 
+#Run c:/Users/niyaz/Desktop/Projects/Apps/mosiac/env/Scripts/activate.bat to activate venv
 UPLOAD_FOLDER='./static/uploads'
 ALLOWED_EXTENSIONS={'png','jpg','jpeg'}
 
