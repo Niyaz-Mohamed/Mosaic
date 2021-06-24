@@ -25,6 +25,10 @@ def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
+@app.route('/')
+def baseRedirect():
+    return redirect('home')
+
 @app.route('/home')
 def root():
 

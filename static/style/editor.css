@@ -7,6 +7,7 @@ header {
     background: var(--mod_white);
     margin: 0px;
     padding: 50px;
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
 }
 
 header div {
@@ -22,6 +23,7 @@ header nav {
     height: 80px;
     padding: 20px;
     margin-bottom: 50px;
+    margin-top: 30px;
     text-align: center;
 }
 
@@ -35,7 +37,7 @@ header .pixelBtn {
     height: auto;
 }
 
-#editorTitle {
+#headerTitle {
     margin-top: 10px !important;
     font-size: 34px !important;
     letter-spacing: 7px;
@@ -47,8 +49,7 @@ header .pixelBtn {
     width: 100%;
     height: auto;
     padding: 125px 75px;
-    border-bottom: 10px dashed var(--mod_white);
-    border-top: 10px dashed var(--mod_white);
+    border-bottom: var(--lego_width) dashed var(--mod_white);
     background: var(--deep_blue);
     color: white;
     letter-spacing: 5px;
