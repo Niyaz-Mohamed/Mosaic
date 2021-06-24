@@ -48,6 +48,25 @@ def root():
 def loadBase():
     return render_template('base.html',noLoadFooter=True)
 
+def pixelate(img,size,pxFactor):
+
+    width=size[0]
+    height=size[1]
+    
+    scaleWidth=round((width*(100-pxFactor)/100))
+    scaleHeight=round((height*(100-pxFactor)/100))
+
+    if scaleWidth<1:
+        scaleWidth= 1
+    if scaleHeight<1:
+        scaleHeight= 1
+        
+    #Scale down by the pxFactor (Ranging from 0 to 100)
+    imgSmall = img.resize((scaleWidth,scaleHeight),resample=Image.BILINEAR)
+    imgSmall.save('image.png')
+    result = imgSmall.resize(size,Image.NEAREST)
+    return result
+
 @app.route('/editor',methods=['POST','GET'])
 def runEditor():
 
@@ -78,14 +97,30 @@ def runEditor():
             errorMsg='Error: Please try again'
 
     if os.path.isfile(app.config['UPLOAD_FOLDER']+filename):
+        
+        print(app.config['UPLOAD_FOLDER']+filename)
 
         #DO IMAGE PROCESSING IF IMAGE EXISTS
-        img=Image.open(r''+app.config['UPLOAD_FOLDER']+filename)
+
+        script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+        rel_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+        abs_file_path = os.path.join(script_dir, rel_path)
+        isolatedFilename=filename[:-4]
+
+        img=Image.open(abs_file_path,'r')
+        try:
+            img=pixelate(img=img,size=img.size,pxFactor=80)
+        except:
+            print('Pixelation Failed')
+        img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
 
         #SET VALUES TO PASS TO render_template()
-        app.config['CURRENT_IMAGE_DATA']['filename']=filename
+        app.config['CURRENT_IMAGE_DATA']['filename']=isolatedFilename+'_pixelated'+'.png'
         app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
         app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
+    
+    else:
+        app.config['CURRENT_IMAGE_DATA']['filename']=''
 
     return render_template('editor.html',
     filename=app.config['CURRENT_IMAGE_DATA']['filename'],
@@ -93,6 +128,8 @@ def runEditor():
     height=app.config['CURRENT_IMAGE_DATA']['height'],
     errorMsg=errorMsg
     )
+
+
 
 @app.route('/library')
 def imageLib():

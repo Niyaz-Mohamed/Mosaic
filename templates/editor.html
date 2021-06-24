@@ -29,7 +29,7 @@
         
         <form method='POST' action='/editor' enctype="multipart/form-data" class='centerContainer'>
             <label class='imgUpload'>
-                <input type="file" accept='image/png, image/jpg, image/jpeg' name='file'>
+                <input type="file" accept='image/png' name='file'>
                 {% if filename != '' %}
                 <p id='filename'>{{filename}}</p>
                 <p id='fileSize'>Size: {{width}}px by {{height}}px</p> 
