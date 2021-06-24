@@ -1,5 +1,6 @@
 :root {
-    --buttonAnim: all 0.2s ease-in;
+    --buttonAnim: all 0.3s ease-in-out;
+    --box_shadow: rgba(0, 0, 0, 0.15) 10px 10px 2px;
     --lego_width: 15px;
     --sandpaper: #ECB807;
     --deep_blue: #1D809F;

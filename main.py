@@ -3,17 +3,20 @@
 from flask import *
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
-import skimage 
+from PIL import Image
+import skimage
 
 import os, json
 import urllib.request
 
 #Run c:/Users/niyaz/Desktop/Projects/Apps/mosiac/env/Scripts/activate.bat to activate venv
-UPLOAD_FOLDER='./static/uploads'
+UPLOAD_FOLDER='./static/uploads/'
 ALLOWED_EXTENSIONS={'png','jpg','jpeg'}
+CURRENT_IMAGE_DATA={'filename':'','width':0,'height':0}
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+app.config['CURRENT_IMAGE_DATA']=CURRENT_IMAGE_DATA
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -54,7 +57,6 @@ def runEditor():
     if request.method == 'POST':
         
         try:
-            print('request called')
             if 'file' not in request.files:
                 errorMsg='Error: Form did not return Image'
                 flash('No file part')
@@ -69,15 +71,28 @@ def runEditor():
                 
             if file and allowed_file(file.filename):
                 filename=secure_filename(file.filename)
-                print(filename)
-                try:
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-                except:
-                    errorMsg('Error: Image Upload Failed')
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                #CARRY OUT IMAGE PROCESSING HERE
+
         except:
             errorMsg='Error: Please try again'
 
-    return render_template('editor.html',filename=filename,errorMsg=errorMsg)
+    if os.path.isfile(app.config['UPLOAD_FOLDER']+filename):
+
+        #DO IMAGE PROCESSING IF IMAGE EXISTS
+        img=Image.open(r''+app.config['UPLOAD_FOLDER']+filename)
+
+        #SET VALUES TO PASS TO render_template()
+        app.config['CURRENT_IMAGE_DATA']['filename']=filename
+        app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
+        app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
+
+    return render_template('editor.html',
+    filename=app.config['CURRENT_IMAGE_DATA']['filename'],
+    width=app.config['CURRENT_IMAGE_DATA']['width'],
+    height=app.config['CURRENT_IMAGE_DATA']['height'],
+    errorMsg=errorMsg
+    )
 
 @app.route('/library')
 def imageLib():

@@ -48,7 +48,7 @@ header .pixelBtn {
 #editorBody {
     width: 100%;
     height: auto;
-    padding: 125px 75px;
+    padding: 75px 75px;
     border-bottom: var(--lego_width) dashed var(--mod_white);
     background: var(--deep_blue);
     color: white;
@@ -58,7 +58,7 @@ header .pixelBtn {
 #imgContainer {
     width: 100%;
     padding: 20px;
-    padding-bottom: 120px;
+    padding-bottom: 40px;
 }
 
 #errorMsg {
@@ -69,14 +69,51 @@ header .pixelBtn {
 }
 
 #imgContainer img{
-    border: 8px dashed var(--mod_white);
+    border: 8px solid var(--mod_white);
+    box-shadow: var(--box_shadow);
     width: 80vw;
     height: auto;
+    transform: rotate(-3deg);
+
+    transition: var(--buttonAnim);
 }
 
-#filename {
-    margin-top: 60px;
+#imgContainer img:hover {
+    transform: rotate(5deg) !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 10px 10px 4px !important;
+}
+
+#fileSize {
+    width: 100%;
+    font-size: 14px;
+}
+
+input[type='file'], input[type='submit'] {
+    display: none;
+}
+
+.imgUpload {
+    text-align: center;
     letter-spacing: 3px;
     font-size: 26px;
+    display: inline-block;
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
 }
 
+#imgRefresh {
+    margin: 60px;
+}
+
+#imgRefresh p{
+    padding: 0px;
+    margin: 0px;
+    font-size: 22px;
+    letter-spacing: 3px;
+}
+
+#refreshIcon {
+    font-size: 26px;
+    font-weight: bolder;
+}

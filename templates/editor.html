@@ -17,22 +17,30 @@
             </nav>
         </div>
     </header>
-    <div id='editorBody' class='centerContainer'>
+    <div id='editorBody' style='text-align: center;'>
 
         <div id='imgContainer' class='centerContainer'>
             {% if filename == '' %}
             <p id='errorMsg'>{{errorMsg}}</p>
             {% else %}
             <img src='../static/uploads/{{filename}}'>
-            <p id='filename'>{{filename}}</p>
             {% endif %}
         </div>
         
-        <form method='POST' action='/editor' enctype="multipart/form-data">
-            <label id='mainImgUpload'>
+        <form method='POST' action='/editor' enctype="multipart/form-data" class='centerContainer'>
+            <label class='imgUpload'>
                 <input type="file" accept='image/png, image/jpg, image/jpeg' name='file'>
+                {% if filename != '' %}
+                <p id='filename'>{{filename}}</p>
+                <p id='fileSize'>Size: {{width}}px by {{height}}px</p> 
+                {% else %}
+                <p>Upload Image</p>
+                {% endif %}
             </label> 
-            <input type='submit' value='upload'>
+            <label class='pixelBtn redBtn centerContainer' id='imgRefresh'>
+                <input type='submit'>
+                <p><span id='refreshIcon'>&#8634;</span> Refresh</p>
+            </label>
         </form>
     </div>
 {% endblock %}
