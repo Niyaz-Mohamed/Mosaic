@@ -4,6 +4,21 @@
 {% endblock %}
 {% block body %}    
     <header class='centerContainer'>
-        <p>Welcome to the editor!</p>
+        <p id='editorTitle' class='title'>Mosiac Editor</p>
     </header>
+    <div id='editorBody'>
+
+        <div id='imgContainer' class='centerContainer'>
+            {% if filename == '' %}
+            <p>{{errorMsg}}</p>
+            {% else %}
+            <img src='../uploads/{{filename}}'>
+            {% endif %}
+        </div>
+        
+        <form method='POST' action='/editor' enctype="multipart/form-data">
+            <input type="file" accept='image/*'  name='file'>
+            <input type='submit' value='upload'>
+        </form>
+    </div>
 {% endblock %}
