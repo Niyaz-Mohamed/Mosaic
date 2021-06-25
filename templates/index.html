@@ -10,36 +10,41 @@
                 <img src='../static/assets/word_logo.png' id='appIcon'>
                 <p class='desc'>Creating pixel art from images</p>
                 <nav class='centerContainer'>
-                    <a href='#examples' class='pixelBtn'>Examples</a>
+                    <a href='#notable' class='pixelBtn'>Notes</a>
                     <a href='library' class='pixelBtn'>Library</a>
-                    <a href='https://github.com/Niyaz-Mohamed/Mosiac/tree/main' class='pixelBtn'>Github</a>
+                    <a href='https://github.com/Niyaz-Mohamed/Mosiac/tree/main' target='_blank' class='pixelBtn'>Github</a>
                 </nav>
             </div>
         </div>
         <div id='headDesc' class='centerContainer'>
             <div id='appIntro' class='centerContainer'>
                 <p id='mainAppDesc'>{{title_desc}}</p>
-                <a href='#pixelator' class='pixelBtn redBtn'>Try It!</a>
+                <a href='editor' class='pixelBtn redBtn'>Try It!</a>
             </div>
         </div>
         </header>
     </header>
-    <div id='examples'>
+    <div id='notable'>
         <div class='leftBorder'></div>  
         <div class='rightBorder'></div>
-        <div class='content'>
-            <div class='centerContainer'>
-                <p class='title'>Examples</p>
-                <p>Insert</p>
-                <p class='subtitle'>Convertion</p>
-                <p>Insert</p>
-                <p class='subtitle'>Comparison</p>    
-                <p>Insert</p>
-            </div>
+        <div class='content' style="text-align: center;">
+            <p class='title'>Things to note</p>
+            <p>When using the editor, using smaller images is highly encouraged
+                as the changes that appear on them when converted are far more obvious
+                than in larger images even at lower degrees of pixelation
+            </p>
+            <p class='subtitle'>Convertion</p>
+            <p>Mosiac's editor currently supports features to change any image into 
+                pixel art with varying degrees of pixelation, greyscaling any images
+                you create, and changing the width (and scaling the height approppriately 
+                as well) of the pixel art.
+            </p>
+            <p class='subtitle'>Downloading</p>    
+            <p>Images cannot be downloaded directly from the editor. To download the 
+                pixel art, first save the art to your personal library, and downloading 
+                it from there instead
+            </p>
         </div>
-    </div>
-    <div id='pixelator' class='centerContainer'>
-        <a href="editor" class='pixelBtn redBtn'>Open Editor</a>
     </div>
 {% endblock %}
 

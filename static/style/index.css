@@ -52,11 +52,11 @@ header {
     margin-bottom: 70px;
 }
 
-#examples {
+#notable {
     width: 100%;
     min-height: 500px;
     background: var(--deep_red);
-    border-bottom: var(--lego_width) dashed var(--deep_blue);
+    border-bottom: var(--lego_width) dashed var(--mod_white);
     color: white;
 }
 
@@ -78,14 +78,10 @@ header {
     border-top: var(--lego_width) dashed var(--deep_blue);
 }
 
-/* Editor Portion */
-
-#pixelator {
-    width:100%;
-    min-height: 100%;
-    padding: 75px;
-    background: var(--deep_blue);
-    border-bottom: var(--lego_width) dashed var(--mod_white);
+.content p {
+    padding-left: 30vw;
+    padding-right: 30vw;
 }
+
 
 
