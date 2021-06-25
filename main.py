@@ -10,6 +10,9 @@ import os, json
 import urllib.request
 
 #Run c:/Users/niyaz/Desktop/Projects/Apps/mosiac/env/Scripts/activate.bat to activate venv
+dir_path=os.path.dirname(os.path.realpath(__file__))
+activate_path=os.path.join(dir_path,'./env/Scripts/activate.bat')
+os.system(f'py {activate_path}')
 UPLOAD_FOLDER='./static/uploads/'
 ALLOWED_EXTENSIONS={'png','jpg','jpeg'}
 CURRENT_IMAGE_DATA={'filename':'','width':0,'height':0}
