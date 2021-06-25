@@ -140,33 +140,37 @@ def runEditor():
     isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
     abs_file_path_edited=os.path.join(script_dir,isolatedFilename+'_pixelated.png')
 
-    if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
+    try:
+        if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
 
-        #DO IMAGE PROCESSING IF IMAGE EXISTS
-        img=Image.open(abs_file_path,'r')
-        img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
-        img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
-        pixDeg=int(imgConfig['pixDeg'])
-        if 'greyscale' in imgConfig:
-            img=makeGreyscale(img)
-            greyscale=True
-        if os.path.exists(abs_file_path_edited):
-            os.remove(abs_file_path_edited)
-        img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
+            #DO IMAGE PROCESSING IF IMAGE EXISTS
+            img=Image.open(abs_file_path,'r')
+            img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
+            img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
+            pixDeg=int(imgConfig['pixDeg'])
+            if 'greyscale' in imgConfig:
+                img=makeGreyscale(img)
+                greyscale=True
+            if os.path.exists(abs_file_path_edited):
+                os.remove(abs_file_path_edited)
+            img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
+            
+            app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
+            app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
+
+            if doLibUpload:
+                listImg=json.dumps(np.array(img).tolist())
+                imgName=isolatedFilename+'_pixelated'+'.png'
+                dataPiece={'name':imgName,'data':listImg}
+                app.config['JSON_DATA'].append(dataPiece)
+                with open('data.json','w') as datafile:
+                    json.dump(app.config['JSON_DATA'],datafile)
         
-        app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
-        app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
-
-        if doLibUpload:
-            listImg=json.dumps(np.array(img).tolist())
-            imgName=isolatedFilename+'_pixelated'+'.png'
-            dataPiece={'name':imgName,'data':listImg}
-            app.config['JSON_DATA'].append(dataPiece)
-            with open('data.json','w') as datafile:
-                json.dump(app.config['JSON_DATA'],datafile)
+        else:
+            app.config['CURRENT_IMAGE']=''
     
-    else:
-        app.config['CURRENT_IMAGE']=''
+    except:
+        pass
     
     if not doLibUpload:
         return render_template('editor.html',
