@@ -18,4 +18,5 @@ Dependencies & Other resources used
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 - [PIL/Pillow](https://pypi.org/project/Pillow/)
 - [Aseprite](https://www.aseprite.org/)
-- [Github Repository](https://github.com/Niyaz-Mohamed/mosiac)
+- [Bootstrap Studio(Prototyping)](https://bootstrapstudio.io/)
+- [Github](https://github.com/Niyaz-Mohamed/mosiac)
