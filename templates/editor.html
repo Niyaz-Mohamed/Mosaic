@@ -30,13 +30,17 @@
         <form method='POST' action='/editor' enctype="multipart/form-data" class='centerContainer'>
             <label class='imgUpload'>
                 <input type="file" accept='image/png' name='file'>
-                {% if filename != '' %}
+                {% if filename == '' or filename == '_pixelated.png' %}
+                <p>Upload Image</p>
+                {% else %}
                 <p id='filename'>{{filename}}</p>
                 <p id='fileSize'>Size: {{width}}px by {{height}}px</p> 
-                {% else %}
-                <p>Upload Image</p>
                 {% endif %}
             </label> 
+            <label class='pixelBtn redBtn centerContainer' id='imgRefresh'>
+                <input type='submit'>
+                <p><span id='refreshIcon'>&#8634;</span> Refresh</p>
+            </label>
             <div id='pixSliderContainer' class='centerContainer'>
                 <p id='pixDegTitle'>Pixelation Degree</p>
                 <div id='completeSlider'>
@@ -49,7 +53,7 @@
             </div>
             <div id='inputFieldHolder'>
                 <p id='widthTitle'>Image Width: </p>
-                <input type="number" value={{width|default(100,true)}} placeholder="New Image Width" id='widthInput' class='textInput' min="1" name='newWidth'>
+                <input type="number" value={{width|default(300,true)}} placeholder="New Image Width" id='widthInput' class='textInput' min="1" name='newWidth'>
             </div>
             <label class='checkContainer'>Greyscale
                 {% if greyscale==True %}
@@ -58,10 +62,6 @@
                 <input type="checkbox" name='greyscale'>
                 {% endif %}
                 <span class='checkmark'></span>
-            </label>
-            <label class='pixelBtn redBtn centerContainer' id='imgRefresh'>
-                <input type='submit'>
-                <p><span id='refreshIcon'>&#8634;</span> Refresh</p>
             </label>
         </form>
     </div>

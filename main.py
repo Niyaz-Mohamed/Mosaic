@@ -118,17 +118,17 @@ def runEditor():
         except:
             errorMsg='Error: Please try again'
 
+    script_dir= os.path.dirname(__file__) 
+    rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
+    abs_file_path= os.path.join(script_dir, rel_path)
+    isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
+    abs_file_path_edited=os.path.join(script_dir,isolatedFilename+'_pixelated.png')
+
     if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
         
         print(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE'])
 
         #DO IMAGE PROCESSING IF IMAGE EXISTS
-
-        script_dir= os.path.dirname(__file__) #<-- absolute dir the script is in
-        rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
-        abs_file_path= os.path.join(script_dir, rel_path)
-        isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
-
         img=Image.open(abs_file_path,'r')
         img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
         img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
@@ -136,13 +136,9 @@ def runEditor():
         if 'greyscale' in imgConfig:
             img=makeGreyscale(img)
             greyscale=True
-        if os.path.exists(abs_file_path):
-            os.remove(abs_file_path)
-        if '_pixelated' not in app.config['CURRENT_IMAGE']:
-            img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
-            app.config['CURRENT_IMAGE']=isolatedFilename+'_pixelated'+'.png'
-        else:
-            img.save(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE'])
+        if os.path.exists(abs_file_path_edited):
+            os.remove(abs_file_path_edited)
+        img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
         
         app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
         app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
@@ -151,7 +147,7 @@ def runEditor():
         app.config['CURRENT_IMAGE']=''
 
     return render_template('editor.html',
-    filename=app.config['CURRENT_IMAGE'],
+    filename=isolatedFilename+'_pixelated'+'.png',
     width=app.config['CURRENT_IMAGE_DATA']['width'],
     height=app.config['CURRENT_IMAGE_DATA']['height'],
     greyscale=greyscale,
