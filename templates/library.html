@@ -17,4 +17,55 @@
             </nav>
         </div>
     </header>
+    <div id='mainBody'>
+        {% if imgData|length == 0 %}
+        <div id='emptyBody' class='centerContainer'>
+            <p>No files to display</p>
+        </div>
+        {% else %}
+            <div id='jsonTabList'>
+            {% for i in range(imgData|length) %}
+                {% set file=imgData[i] %}
+                {% set path='imgPath' %}
+                {% set forwardLocation="library/"+file['name'] %}
+
+                {% if i%2==0 %}
+                <div class='odd jsonTab'>
+                    <img src={{file[path]}}>
+                    <p id='filename'>{{file['name']}}</p>
+                    <div id='buttonOptions'>
+                        <div id='buttonContainer'>
+                            <a class='centerContainer pixelBtn downloadBtn' href='{{forwardLocation}}'>
+                                <p>
+                                    <span id='downloadIcon'>
+                                        <i class='fa fa-download'></i>
+                                    </span> 
+                                Download</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                {% else %}
+                <div class='even jsonTab'>
+                    <img src={{file[path]}}>
+                    <p id='filename'>{{file['name']}}</p>
+                    <div id='buttonOptions'>
+                        <div id='buttonContainer'>
+                            <a class='centerContainer pixelBtn downloadBtn' href='{{forwardLocation}}'>
+                                <p>
+                                    <span id='downloadIcon'>
+                                        <i class='fa fa-download'></i>
+                                    </span> 
+                                Download</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
 {% endblock %}
