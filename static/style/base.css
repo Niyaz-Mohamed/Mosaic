@@ -1,14 +1,14 @@
 :root {
     --buttonAnim: all 0.3s ease-in-out;
     --box_shadow: rgba(0, 0, 0, 0.15) 10px 10px 2px;
+    --slider_size: 25px;
     --lego_width: 15px;
+    --tick_transform: matrix(1.1,45,45,1.1,0px,0px);
     --sandpaper: #ECB807;
     --deep_blue: #1D809F;
     --deep_red: #d86425;
     --mod_white: #efeae1;
     --atom_gray: #574c4f;
-    --bs-font-sans-serif: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @font-face {
@@ -98,7 +98,6 @@ header {
     max-width: fit-content;
     margin: 10px 25px;
     z-index: 2;
-    /* font-family: 'VT323'; */
     
     position: relative;
     display: block;

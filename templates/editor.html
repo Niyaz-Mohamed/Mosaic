@@ -37,6 +37,24 @@
                 <p>Upload Image</p>
                 {% endif %}
             </label> 
+            <div id='pixSliderContainer' class='centerContainer'>
+                <p id='pixDegTitle'>Pixelation Degree</p>
+                <div id='completeSlider'>
+                    <p id='startValue'>0</p>
+                    <div class='slideContainer' id='pixSlider'>
+                        <input type="range" min='50' max='100' value='75' class='slider' name='pixDeg'>
+                    </div>
+                    <p id='endValue'>100</p>
+                </div>
+            </div>
+            <div id='inputFieldHolder'>
+                <p id='widthTitle'>Image Width: </p>
+                <input type="number" value={{width|default(100,true)}} placeholder="New Image Width" id='widthInput' class='textInput' min="1" name='newWidth'>
+            </div>
+            <label class='checkContainer'>Greyscale
+                <input type="checkbox" name='greyscale'>
+                <span class='checkmark'></span>
+            </label>
             <label class='pixelBtn redBtn centerContainer' id='imgRefresh'>
                 <input type='submit'>
                 <p><span id='refreshIcon'>&#8634;</span> Refresh</p>
