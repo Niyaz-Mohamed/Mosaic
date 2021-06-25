@@ -81,6 +81,10 @@ header .pixelBtn {
     border-bottom: var(--lego_width) dashed var(--mod_white) !important;
 }
 
+.jsonTab img {
+    border: 5px solid var(--mod_white);
+}
+
 #buttonOptions {
     display: flex;
     justify-content: center;
@@ -98,6 +102,7 @@ header .pixelBtn {
 
 #buttonContainer button {
     margin: 30px !important;
+    cursor: pointer;
 }
 
 #buttonOptions .pixelBtn p{

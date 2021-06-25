@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, flash, request, redirect
+from flask import render_template, request, flash, request, redirect, send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from PIL import Image, ImageOps
@@ -197,5 +197,11 @@ def imageLib():
         resultImgData.append({'name':filename,'imgPath':rel_path})
 
     return render_template('library.html',imgData=resultImgData)
+
+@app.route('/library/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    script_dir= os.path.dirname(__file__) 
+    jsonUploads = os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
+    return send_file(jsonUploads, as_attachment=True)
 
 app.run(host='0.0.0.0', port=8080, debug=True)

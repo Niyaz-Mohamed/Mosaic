@@ -27,6 +27,7 @@
             {% for i in range(imgData|length) %}
                 {% set file=imgData[i] %}
                 {% set path='imgPath' %}
+                {% set forwardLocation="library/"+file['name'] %}
 
                 {% if i%2==0 %}
                 <div class='odd jsonTab'>
@@ -34,13 +35,13 @@
                     <p id='filename'>{{file['name']}}</p>
                     <div id='buttonOptions'>
                         <div id='buttonContainer'>
-                            <button class='centerContainer pixelBtn downloadBtn'>
+                            <a class='centerContainer pixelBtn downloadBtn' href='{{forwardLocation}}'>
                                 <p>
                                     <span id='downloadIcon'>
                                         <i class='fa fa-download'></i>
                                     </span> 
                                 Download</p>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -51,13 +52,13 @@
                     <p id='filename'>{{file['name']}}</p>
                     <div id='buttonOptions'>
                         <div id='buttonContainer'>
-                            <button class='centerContainer pixelBtn downloadBtn'>
+                            <a class='centerContainer pixelBtn downloadBtn' href='{{forwardLocation}}'>
                                 <p>
                                     <span id='downloadIcon'>
                                         <i class='fa fa-download'></i>
                                     </span> 
                                 Download</p>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
