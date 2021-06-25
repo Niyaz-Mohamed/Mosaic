@@ -75,7 +75,7 @@ header .pixelBtn {
 #imgContainer img{
     border: 8px solid var(--mod_white);
     box-shadow: var(--box_shadow);
-    width: 80vw;
+    max-width: 80vw;
     height: auto;
     transform: rotate(-3deg);
 

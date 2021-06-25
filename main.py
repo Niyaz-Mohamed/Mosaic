@@ -3,7 +3,7 @@
 from flask import *
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
-from PIL import Image
+from PIL import Image, ImageOps
 import skimage
 
 import os, json
@@ -72,15 +72,17 @@ def pixelate(img,size,pxFactor):
     result = imgSmall.resize(size,Image.NEAREST)
     return result
 
-def greyscale(img):
+def makeGreyscale(img):
+    img=ImageOps.grayscale(img)
+    print(type(img))
     return img
 
-def resize(img,newWidth,size):
+def customResize(img,newWidth,size):
 
     oldWidth=size[0]
     oldHeight=size[1]
     newHeight=round(oldHeight*(newWidth/oldWidth))
-    img.resize((newWidth,newHeight),resample=Image.BILINEAR)
+    img=img.resize([newWidth,newHeight],resample=Image.BILINEAR)
     return img
 
 @app.route('/editor',methods=['POST','GET'])
@@ -90,6 +92,8 @@ def runEditor():
     errorMsg='No file chosen'
 
     imgConfig=request.form
+    pixDeg=50
+    greyscale=False
 
     if request.method == 'POST':
         
@@ -127,9 +131,11 @@ def runEditor():
 
         img=Image.open(abs_file_path,'r')
         img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
-        img=resize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
+        img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
+        pixDeg=int(imgConfig['pixDeg'])
         if 'greyscale' in imgConfig:
-            img=greyscale(img)
+            img=makeGreyscale(img)
+            greyscale=True
         if os.path.exists(abs_file_path):
             os.remove(abs_file_path)
         if '_pixelated' not in app.config['CURRENT_IMAGE']:
@@ -148,6 +154,8 @@ def runEditor():
     filename=app.config['CURRENT_IMAGE'],
     width=app.config['CURRENT_IMAGE_DATA']['width'],
     height=app.config['CURRENT_IMAGE_DATA']['height'],
+    greyscale=greyscale,
+    pixDeg=pixDeg,
     errorMsg=errorMsg
     )
 
