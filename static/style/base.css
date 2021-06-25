@@ -18,7 +18,6 @@
 }
 
 html {
-    /* font-family: 'VT323'; */
     font-family: minecraft;
     font-size: 16px;
     letter-spacing: 1.5px;
@@ -90,6 +89,7 @@ header {
 }
 
 .pixelBtn {
+    font-family: minecraft;
     font-size: 20px;
     color: white !important;
     background: black;

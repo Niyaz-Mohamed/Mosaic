@@ -193,10 +193,8 @@ def imageLib():
         img=Image.fromarray(np.array(json.loads(img), dtype='uint8'))
         img.save(app.config['JSON_UPLOAD_FOLDER']+filename)
         
-        script_dir= os.path.dirname(__file__) 
         rel_path= os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
-        abs_file_path= os.path.join(script_dir, rel_path)
-        resultImgData.append({'name':filename,'imgPath':abs_file_path})
+        resultImgData.append({'name':filename,'imgPath':rel_path})
 
     return render_template('library.html',imgData=resultImgData)
 

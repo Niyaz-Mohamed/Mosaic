@@ -8,6 +8,7 @@ header {
     margin: 0px;
     padding-bottom: 100px !important;
     padding: 50px;
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
 }
 
 header div {
@@ -57,4 +58,55 @@ header .pixelBtn {
     letter-spacing: 5px;
     border-top: var(--mod_white) dashed var(--lego_width);
     border-bottom: var(--mod_white) dashed var(--lego_width);
+}
+
+.jsonTab {
+    width: 100vw !important;
+    text-align: center;
+    color: var(--mod_white);
+    padding: 75px;
+}
+
+.odd {
+    background: var(--deep_blue);
+    border-bottom: var(--lego_width) dashed var(--deep_red);
+}
+
+.even {
+    background: var(--deep_red);
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
+}
+
+:host(:last-child) .jsonTab {
+    border-bottom: var(--lego_width) dashed var(--mod_white) !important;
+}
+
+#buttonOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#buttonContainer {
+    width: 50%;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttonContainer button {
+    margin: 30px !important;
+}
+
+#buttonOptions .pixelBtn p{
+    min-width: 250px;
+    letter-spacing: 3px;
+}
+
+#buttonOptions .pixelBtn {
+    margin: 0px;
+    border: 0px;
+    padding: 10px;
 }
