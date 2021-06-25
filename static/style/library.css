@@ -6,6 +6,7 @@ body {
 header {
     background: var(--mod_white);
     margin: 0px;
+    padding-bottom: 100px !important;
     padding: 50px;
 }
 
@@ -42,4 +43,18 @@ header .pixelBtn {
     letter-spacing: 7px;
     font-weight: bolder;
     width: 100%;
+}
+
+/* Library specific code */
+
+#emptyBody {
+    width: 100%;
+    height: 100vh;
+    background: var(--deep_blue);
+    color: var(--mod_white);
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    border-top: var(--mod_white) dashed var(--lego_width);
+    border-bottom: var(--mod_white) dashed var(--lego_width);
 }

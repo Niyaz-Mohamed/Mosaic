@@ -17,4 +17,9 @@
             </nav>
         </div>
     </header>
+    {% if imgData|length == 0 %}
+    <div id='emptyBody' class='centerContainer'>
+        <p>No files to display</p>
+    </div>
+    {% endif %}
 {% endblock %}
