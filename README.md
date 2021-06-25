@@ -12,3 +12,10 @@ Features
 - Convertion of normal images to pixel art  
 - Support for greyscaling images 
 - An Image library for easy image storage and download
+
+Dependencies & Other resources used
+--------
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+- [PIL/Pillow](https://pypi.org/project/Pillow/)
+- [Aseprite](https://www.aseprite.org/)
+- [Github Repository](https://github.com/Niyaz-Mohamed/mosiac)
