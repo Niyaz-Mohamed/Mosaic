@@ -51,7 +51,7 @@ header .pixelBtn {
     padding: 75px 75px;
     border-bottom: var(--lego_width) dashed var(--mod_white);
     background: var(--deep_blue);
-    color: white;
+    color: var(--mod_white);
     letter-spacing: 5px;
 }
 
@@ -62,23 +62,27 @@ header .pixelBtn {
 }
 
 #errorMsg {
-    width: 50%;
+    padding: 75px;
+    width: 100%;
     text-align: center;
     font-size: 24px;
     letter-spacing: 8px;
+    border: 5px solid var(--mod_white);
+
+    transition: var(--buttonAnim)
 }
 
 #imgContainer img{
     border: 8px solid var(--mod_white);
     box-shadow: var(--box_shadow);
-    width: 80vw;
+    max-width: 80vw;
     height: auto;
     transform: rotate(-3deg);
 
     transition: var(--buttonAnim);
 }
 
-#imgContainer img:hover {
+#imgContainer img:hover, #imgContainer p:hover {
     transform: rotate(5deg) !important;
     box-shadow: rgba(0, 0, 0, 0.15) 10px 10px 4px !important;
 }
@@ -98,12 +102,14 @@ input[type='file'], input[type='submit'] {
     font-size: 26px;
     display: inline-block;
     padding: 6px;
+    text-decoration: underline;
     cursor: pointer;
     width: 100%;
 }
 
 #imgRefresh {
-    margin: 60px;
+    margin: 30px 100%;
+    width: 50%
 }
 
 #imgRefresh p{
@@ -116,4 +122,167 @@ input[type='file'], input[type='submit'] {
 #refreshIcon {
     font-size: 26px;
     font-weight: bolder;
+}
+
+#pixSliderContainer {
+    width: 100%;
+    align-items: baseline;
+    margin: 80px 0px;
+    padding: 50px;
+    padding-bottom: 75px;
+    border: 5px solid var(--mod_white);
+    box-shadow: var(--box_shadow);
+}
+
+#pixSliderContainer p {
+    font-size: 18px;
+}
+
+#pixDegTitle {
+    width: 70%;
+    float: left;
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+#completeSlider {
+    display: flex;
+    width: 100%;
+    float: right;
+    text-align: center;
+    justify-content: center;
+}
+
+#startValue {
+    margin: 0px;
+    width: 10%;
+    float: left;
+}
+
+.slideContainer {
+    height:fit-content;
+}
+
+#pixSlider {
+    width: 70%;
+}
+
+#endValue {
+    margin: 0px;
+    width: 10%;
+    float: right;
+}
+  
+.slider {
+    -webkit-appearance: none;  
+    appearance: none;
+    width: 100%; 
+    height: var(--slider_size); 
+    background: var(--mod_white);
+    outline: none; 
+    opacity: 1; 
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: var(--slider_size); 
+    height: var(--slider_size); 
+    background: var(--sandpaper); 
+    cursor: pointer; 
+    background: var(--sandpaper);
+}
+  
+.slider::-moz-range-thumb {
+    width: var(--slider_size); 
+    height: var(--slider_size);
+    background: var(--sandpaper); 
+    cursor: pointer;
+    background: var(--sandpaper);
+}
+
+.checkContainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 20px;
+}
+  
+.checkContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.checkContainer input:checked ~ .checkmark {
+    background-color: var(--sandpaper);
+}
+  
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+.checkContainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+.checkContainer .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--mod_white);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+#inputFieldHolder {
+    width: 100%;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 75px;
+    padding: 50px;
+    padding-bottom: 75px;
+    border: 5px solid var(--mod_white);
+    box-shadow: var(--box_shadow);
+}
+
+#widthTitle {
+    font-size: 18px;
+    margin: 35px;
+}
+
+.textInput {
+    width: 100%;
+    text-align: center;
+    background: inherit;
+    padding: 10px;
+    color: var(--mod_white);
+    border: none;
+    border-bottom: 4px solid var(--mod_white);
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 5px;
 }

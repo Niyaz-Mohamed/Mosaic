@@ -3,22 +3,25 @@
 from flask import *
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
-from PIL import Image
+from PIL import Image, ImageOps
 import skimage
 
 import os, json
 import urllib.request
 
-#Run c:/Users/niyaz/Desktop/Projects/Apps/mosiac/env/Scripts/activate.bat to activate venv
+#Activate venv
 dir_path=os.path.dirname(os.path.realpath(__file__))
 activate_path=os.path.join(dir_path,'./env/Scripts/activate.bat')
 os.system(f'py {activate_path}')
+
 UPLOAD_FOLDER='./static/uploads/'
 ALLOWED_EXTENSIONS={'png','jpg','jpeg'}
-CURRENT_IMAGE_DATA={'filename':'','width':0,'height':0}
+CURRENT_IMAGE=''
+CURRENT_IMAGE_DATA={'width':0,'height':0}
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+app.config['CURRENT_IMAGE']=CURRENT_IMAGE
 app.config['CURRENT_IMAGE_DATA']=CURRENT_IMAGE_DATA
 
 def allowed_file(filename):
@@ -56,8 +59,8 @@ def pixelate(img,size,pxFactor):
     width=size[0]
     height=size[1]
     
-    scaleWidth=round((width*(100-pxFactor)/100))
-    scaleHeight=round((height*(100-pxFactor)/100))
+    scaleWidth=round(width*(100-pxFactor)/100)
+    scaleHeight=round(height*(100-pxFactor)/100)
 
     if scaleWidth<1:
         scaleWidth= 1
@@ -66,15 +69,31 @@ def pixelate(img,size,pxFactor):
         
     #Scale down by the pxFactor (Ranging from 0 to 100)
     imgSmall = img.resize((scaleWidth,scaleHeight),resample=Image.BILINEAR)
-    imgSmall.save('image.png')
     result = imgSmall.resize(size,Image.NEAREST)
     return result
+
+def makeGreyscale(img):
+    img=ImageOps.grayscale(img)
+    print(type(img))
+    return img
+
+def customResize(img,newWidth,size):
+
+    oldWidth=size[0]
+    oldHeight=size[1]
+    newHeight=round(oldHeight*(newWidth/oldWidth))
+    img=img.resize([newWidth,newHeight],resample=Image.BILINEAR)
+    return img
 
 @app.route('/editor',methods=['POST','GET'])
 def runEditor():
 
     filename=''
     errorMsg='No file chosen'
+
+    imgConfig=request.form
+    pixDeg=50
+    greyscale=False
 
     if request.method == 'POST':
         
@@ -94,51 +113,50 @@ def runEditor():
             if file and allowed_file(file.filename):
                 filename=secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-                #CARRY OUT IMAGE PROCESSING HERE
+                app.config['CURRENT_IMAGE']=filename
 
         except:
             errorMsg='Error: Please try again'
 
-    if os.path.isfile(app.config['UPLOAD_FOLDER']+filename):
+    script_dir= os.path.dirname(__file__) 
+    rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
+    abs_file_path= os.path.join(script_dir, rel_path)
+    isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
+    abs_file_path_edited=os.path.join(script_dir,isolatedFilename+'_pixelated.png')
+
+    if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
         
-        print(app.config['UPLOAD_FOLDER']+filename)
+        print(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE'])
 
         #DO IMAGE PROCESSING IF IMAGE EXISTS
-
-        script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
-        rel_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
-        abs_file_path = os.path.join(script_dir, rel_path)
-        isolatedFilename=filename[:-4]
-
         img=Image.open(abs_file_path,'r')
-        try:
-            img=pixelate(img=img,size=img.size,pxFactor=80)
-        except:
-            print('Pixelation Failed')
+        img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
+        img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
+        pixDeg=int(imgConfig['pixDeg'])
+        if 'greyscale' in imgConfig:
+            img=makeGreyscale(img)
+            greyscale=True
+        if os.path.exists(abs_file_path_edited):
+            os.remove(abs_file_path_edited)
         img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
-
-        #SET VALUES TO PASS TO render_template()
-        app.config['CURRENT_IMAGE_DATA']['filename']=isolatedFilename+'_pixelated'+'.png'
+        
         app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
         app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
     
     else:
-        app.config['CURRENT_IMAGE_DATA']['filename']=''
+        app.config['CURRENT_IMAGE']=''
 
     return render_template('editor.html',
-    filename=app.config['CURRENT_IMAGE_DATA']['filename'],
+    filename=isolatedFilename+'_pixelated'+'.png',
     width=app.config['CURRENT_IMAGE_DATA']['width'],
     height=app.config['CURRENT_IMAGE_DATA']['height'],
+    greyscale=greyscale,
+    pixDeg=pixDeg,
     errorMsg=errorMsg
     )
-
-
 
 @app.route('/library')
 def imageLib():
     return render_template('library.html')
 
 app.run(host='0.0.0.0', port=8080, debug=True)
-
-#TODO: 
-#Test image form
