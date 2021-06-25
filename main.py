@@ -171,7 +171,7 @@ def runEditor():
     
     except:
         pass
-    
+
     if not doLibUpload:
         return render_template('editor.html',
         filename=isolatedFilename+'_pixelated'+'.png',
