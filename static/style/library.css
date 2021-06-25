@@ -49,14 +49,13 @@ header .pixelBtn {
 /* Library specific code */
 
 #emptyBody {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background: var(--deep_blue);
     color: var(--mod_white);
     font-size: 32px;
     font-weight: bold;
     letter-spacing: 5px;
-    border-top: var(--mod_white) dashed var(--lego_width);
     border-bottom: var(--mod_white) dashed var(--lego_width);
 }
 
