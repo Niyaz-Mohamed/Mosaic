@@ -1,20 +1,21 @@
+#Import packages
 from flask import Flask
 from flask import render_template, request, flash, request, redirect, send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
-from PIL import Image, ImageOps
 
+from PIL import Image, ImageOps
 import os,json
 import numpy as np
 
 #Activate venv
 dir_path=os.path.dirname(os.path.realpath(__file__))
 
+#Define global variables stores internally within the app itslef
 UPLOAD_FOLDER='./static/uploads/'
 JSON_UPLOAD_FOLDER='./static/json/'
 CURRENT_IMAGE=''
 CURRENT_IMAGE_DATA={'width':0,'height':0}
-ALLOWED_EXTENSIONS={'png','jpg'}
 JSON_DATA=[]
 
 app=Flask(__name__)
@@ -24,6 +25,7 @@ app.config['CURRENT_IMAGE']=CURRENT_IMAGE
 app.config['CURRENT_IMAGE_DATA']=CURRENT_IMAGE_DATA
 app.config['JSON_DATA']=JSON_DATA
 
+#Add a list to the json file if it exists
 if os.path.exists('data.json'):
     try:
         with open('data.json') as datafile:
@@ -32,28 +34,26 @@ if os.path.exists('data.json'):
         with open('data.json','w') as datafile:
             json.dump(app.config['JSON_DATA'],datafile)
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 def allowedFile(filename):
-    allowedExtensions = set(['png','jpg','jpeg'])
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowedExtensions
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png','jpg'}
 
+#General Error Handler
 @app.errorhandler(HTTPException)
 def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
+#Error route for checking of the error page
 @app.route('/error')
 def showError():
     return render_template('error.html', error={'code':': )','name':'no error here','description':'don\'t go peeking at my code'})
 
-
+#Root route redirects to home
 @app.route('/')
 def baseRedirect():
     return redirect('home')
 
+#Home route
 @app.route('/home')
 def root():
 
@@ -63,10 +63,12 @@ def root():
 
     return render_template('index.html',title_desc=title_desc)
 
+#Route to check the base html template
 @app.route('/base')
 def loadBase():
     return render_template('base.html',noLoadFooter=True)
 
+#Image pixelation function
 def pixelate(img,size,pxFactor):
 
     width=size[0]
@@ -85,10 +87,12 @@ def pixelate(img,size,pxFactor):
     result = imgSmall.resize(size,Image.NEAREST)
     return result
 
+#Image greyscale function
 def makeGreyscale(img):
     img=ImageOps.grayscale(img)
     return img
 
+#Image resize (keeping ratio) function
 def customResize(img,newWidth,size):
 
     oldWidth=size[0]
@@ -97,9 +101,11 @@ def customResize(img,newWidth,size):
     img=img.resize([newWidth,newHeight],resample=Image.BILINEAR)
     return img
 
+#Main editor route
 @app.route('/editor',methods=['POST','GET'])
 def runEditor():
 
+    #Check json again
     if os.path.exists('data.json'):
         try:
             with open('data.json') as datafile:
@@ -108,17 +114,19 @@ def runEditor():
             with open('data.json','w') as datafile:
                 json.dump(app.config['JSON_DATA'],datafile)
 
+    #Define variables to be used in this function 
+    imgConfig=request.form
     filename=''
     errorMsg='No file chosen'
-
-    imgConfig=request.form
     pixDeg=50
     greyscale=False
     doLibUpload=False
 
+    #Prepare to send the image to the library if needed
     if 'uploadToLib' in imgConfig and imgConfig['uploadToLib']=='True':
         doLibUpload=True
 
+    #Handle file upload
     if request.method == 'POST' :
         
         try:
@@ -134,7 +142,7 @@ def runEditor():
                 flash('No selected file')
                 return redirect(request.url)
                 
-            if file and allowed_file(file.filename):
+            if file and allowedFile(file.filename):
                 filename=secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
                 app.config['CURRENT_IMAGE']=filename
@@ -142,6 +150,7 @@ def runEditor():
         except:
             errorMsg='Error: Please try again'
 
+    #Define some important file paths
     script_dir= os.path.dirname(__file__) 
     rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
     abs_file_path= os.path.join(script_dir, rel_path)
@@ -150,7 +159,7 @@ def runEditor():
 
     if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
 
-        #DO IMAGE PROCESSING IF IMAGE EXISTS
+        #Do image processing if the image exists
         img=Image.open(abs_file_path,'r')
         img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
         img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
@@ -159,17 +168,22 @@ def runEditor():
             img=makeGreyscale(img)
             greyscale=True
 
+        #Replace existing pixelated file with newly made file
         if os.path.exists(abs_file_path_edited):
             os.remove(abs_file_path_edited)
         img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
         
+        #Change image data
         app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
         app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
 
+        #Dump pixel list of the image into the json file
         if doLibUpload:
             listImg=json.dumps(np.array(img).tolist())
             imgName=isolatedFilename+'_pixelated'+'.png'
             fileNameList=[]
+
+            #Change filename to ensure no file duplicates in the library 
             with open('data.json') as datafile:
                 data=json.load(datafile)
                 for file in data:
@@ -183,11 +197,14 @@ def runEditor():
                         continue
                     else:
                         break
+            
+            #Add the data to the json file
             dataPiece={'name':imgName,'data':listImg}
             app.config['JSON_DATA'].append(dataPiece)
             with open('data.json','w') as datafile:
                 json.dump(app.config['JSON_DATA'],datafile)
 
+    #Render editor if image upload to library is not needed
     if not doLibUpload:
 
         return render_template('editor.html',
@@ -199,6 +216,7 @@ def runEditor():
         errorMsg=errorMsg
         )
 
+    #Redirect to the library 
     else:
         app.config['CURRENT_IMAGE']=''
         return redirect('library')
@@ -210,6 +228,8 @@ def imageLib():
         imgData=json.load(datafile)
         imgData.reverse()
     resultImgData=[]
+
+    #Convert data in json file to a dictionary to pass into the library template
     for file in imgData:
         img=file['data']
         filename=file['name']
@@ -221,9 +241,11 @@ def imageLib():
 
     return render_template('library.html',imgData=resultImgData)
 
+#Generate file download links
 @app.route('/library/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
     jsonUploads = os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
     return send_file(jsonUploads, as_attachment=True)
 
+#Run app
 app.run(host='0.0.0.0', port=8080, debug=True)
