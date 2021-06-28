@@ -68,12 +68,16 @@ header .pixelBtn {
 
 .odd {
     background: var(--deep_blue);
-    border-top: var(--lego_width) dashed var(--deep_red);
+    border-top: var(--deep_red);
 }
 
 .even {
     background: var(--deep_red);
     border-top: var(--lego_width) dashed var(--deep_blue);
+}
+
+.firstTab {
+    border-top: none !important;
 }
 
 .finalTab {

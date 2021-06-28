@@ -40,6 +40,8 @@
 
                 {% if i==(imgData|length)-1 %}
                 {% set isFinal='finalTab' %}
+                {% elif i==0 %}
+                {% set isFinal='firstTab' %}
                 {% endif %} 
 
                 <div class= 'jsonTab {{num}} {{isFinal}}'>

@@ -280,10 +280,16 @@ input[type='file'], input[type='submit'] {
     text-align: center;
     background: inherit;
     padding: 10px;
-    color: var(--mod_white);
+    color: var(--mod_white) !important;
     border: none;
     border-bottom: 4px solid var(--mod_white);
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 5px;
+}
+
+.textInput::placeholder {
+    color: var(--mod_white);
+    font-family: minecraft;
+    font-size: 12px;
 }
