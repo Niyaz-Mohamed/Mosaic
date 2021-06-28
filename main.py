@@ -3,15 +3,12 @@ from flask import render_template, request, flash, request, redirect, send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from PIL import Image, ImageOps
-import skimage
 
 import os,json
 import numpy as np
 
 #Activate venv
 dir_path=os.path.dirname(os.path.realpath(__file__))
-activate_path=os.path.join(dir_path,'./env/Scripts/activate.bat')
-os.system(f'py {activate_path}')
 
 UPLOAD_FOLDER='./static/uploads/'
 JSON_UPLOAD_FOLDER='./static/json/'
@@ -26,6 +23,14 @@ app.config['JSON_UPLOAD_FOLDER']=JSON_UPLOAD_FOLDER
 app.config['CURRENT_IMAGE']=CURRENT_IMAGE
 app.config['CURRENT_IMAGE_DATA']=CURRENT_IMAGE_DATA
 app.config['JSON_DATA']=JSON_DATA
+
+if os.path.exists('data.json'):
+    try:
+        with open('data.json') as datafile:
+            app.config['JSON_DATA'] = json.load(datafile)
+    except:
+        with open('data.json','w') as datafile:
+            json.dump(app.config['JSON_DATA'],datafile)
 
 def allowed_file(filename):
     return '.' in filename and \
