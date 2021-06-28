@@ -25,29 +25,24 @@
         {% else %}
             <div id='jsonTabList'>
             {% for i in range(imgData|length) %}
+
                 {% set file=imgData[i] %}
                 {% set path='imgPath' %}
                 {% set forwardLocation="library/"+file['name'] %}
+                {% set num='even' %} 
+                {% set isFinal='' %}
 
                 {% if i%2==0 %}
-                <div class='odd jsonTab'>
-                    <img src={{file[path]}}>
-                    <p id='filename'>{{file['name']}}</p>
-                    <div id='buttonOptions'>
-                        <div id='buttonContainer'>
-                            <a class='centerContainer pixelBtn downloadBtn' href='{{forwardLocation}}'>
-                                <p>
-                                    <span id='downloadIcon'>
-                                        <i class='fa fa-download'></i>
-                                    </span> 
-                                Download</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
+                {% set num='odd' %}
                 {% else %}
-                <div class='even jsonTab'>
+                {% set num='even' %}
+                {% endif %}
+
+                {% if i==(imgData|length)-1 %}
+                {% set isFinal='finalTab' %}
+                {% endif %} 
+
+                <div class= 'jsonTab {{num}} {{isFinal}}'>
                     <img src={{file[path]}}>
                     <p id='filename'>{{file['name']}}</p>
                     <div id='buttonOptions'>
@@ -62,8 +57,6 @@
                         </div>
                     </div>
                 </div>
-            
-                {% endif %}
             {% endfor %}
         </div>
         {% endif %}
