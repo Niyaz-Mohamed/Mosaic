@@ -13,10 +13,16 @@ Features
 - Support for greyscaling images 
 - An Image library for easy image storage and download
 
-Dependencies & Other resources used
---------
-- [Flask](https://flask.palletsprojects.com/en/2.0.x/)
-- [PIL/Pillow](https://pypi.org/project/Pillow/)
+Resources used
+
 - [Aseprite](https://www.aseprite.org/)
-- [Bootstrap Studio(Prototyping)](https://bootstrapstudio.io/)
+- [Bootstrap Studio (Prototyping)](https://bootstrapstudio.io/)
 - [Github](https://github.com/Niyaz-Mohamed/mosiac)
+
+Dependencies
+------------
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+- [Numpy](https://numpy.org/)
+- [Jinja](https://jinja.palletsprojects.com/en/3.0.x/)
+- [Werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/)
+- [PIL/Pillow](https://pypi.org/project/Pillow/)
