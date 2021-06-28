@@ -45,6 +45,11 @@ def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
+@app.route('/error')
+def showError():
+    return render_template('error.html', error={'code':': )','name':'no error here','description':'don\'t go peeking at my code'})
+
+
 @app.route('/')
 def baseRedirect():
     return redirect('home')
@@ -142,7 +147,7 @@ def runEditor():
     script_dir= os.path.dirname(__file__) 
     rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
     abs_file_path= os.path.join(script_dir, rel_path)
-    isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
+    isolatedFilename=(app.config['CURRENT_IMAGE'].split('.'))[0]
     abs_file_path_edited=os.path.join(script_dir,isolatedFilename+'_pixelated.png')
 
     try:
@@ -178,6 +183,7 @@ def runEditor():
         pass
 
     if not doLibUpload:
+
         return render_template('editor.html',
         filename=isolatedFilename+'_pixelated'+'.png',
         width=app.config['CURRENT_IMAGE_DATA']['width'],
@@ -195,6 +201,7 @@ def runEditor():
 def imageLib():
     with open('data.json') as datafile:
         imgData=json.load(datafile)
+        imgData.reverse()
     resultImgData=[]
     for file in imgData:
         img=file['data']

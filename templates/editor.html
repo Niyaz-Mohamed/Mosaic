@@ -29,7 +29,7 @@
         
         <form method='POST' action='/editor' enctype="multipart/form-data" class='centerContainer'>
             <label class='imgUpload'>
-                <input type="file" accept='image/png, image/jpg' name='file'>
+                <input type="file" accept='.png, .jpg' name='file'>
                 {% if filename == '' or filename == '_pixelated.png' %}
                 <p>Upload Image</p>
                 {% else %}
@@ -42,17 +42,27 @@
                 <p><span id='refreshIcon'>&#8634;</span> Refresh</p>
             </label>
             {% if filename != '' %}
-            <a href='library' class=pixelBtn>
-                <label class='centerContainer'>
-                    <input type='submit' name='uploadToLib' value='True'>
-                    <p>
-                        <span id='downloadIcon'>
-                            <i class='fa fa-download'></i>
-                        </span> 
-                    Upload to Library</p>
-                </label>
-            </a>
+            <div style='width: 100%; margin-bottom: 40px;' class='centerContainer'>
+                <a href='library' class=pixelBtn>
+                    <label class='centerContainer'>
+                        <input type='submit' name='uploadToLib' value='True'>
+                        <p>
+                            <span id='downloadIcon'>
+                                <i class='fa fa-download'></i>
+                            </span> 
+                        Upload to Library</p>
+                    </label>
+                </a>
+            </div>
             {% endif %}
+            <label class='checkContainer'>Greyscale
+                {% if greyscale==True %}
+                <input type="checkbox" name='greyscale' checked>
+                {% else %}
+                <input type="checkbox" name='greyscale'>
+                {% endif %}
+                <span class='checkmark'></span>
+            </label>
             <div id='pixSliderContainer' class='centerContainer'>
                 <p id='pixDegTitle'>Pixelation Degree</p>
                 <div id='completeSlider'>
@@ -67,14 +77,6 @@
                 <p id='widthTitle'>Image Width: </p>
                 <input type="number" value={{width|default(300,true)}} placeholder="New Image Width" id='widthInput' class='textInput' min="1" name='newWidth'>
             </div>
-            <label class='checkContainer'>Greyscale
-                {% if greyscale==True %}
-                <input type="checkbox" name='greyscale' checked>
-                {% else %}
-                <input type="checkbox" name='greyscale'>
-                {% endif %}
-                <span class='checkmark'></span>
-            </label>
         </form>
     </div>
 {% endblock %}

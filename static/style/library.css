@@ -37,7 +37,7 @@ header .pixelBtn {
     height: auto;
 }
 
-#headerTitle {
+#libTitle {
     margin-top: 10px !important;
     font-size: 34px !important;
     letter-spacing: 7px;
@@ -55,6 +55,7 @@ header .pixelBtn {
     font-size: 32px;
     font-weight: bold;
     letter-spacing: 5px;
+    border-top: var(--mod_white) dashed var(--lego_width);
     border-bottom: var(--mod_white) dashed var(--lego_width);
 }
 

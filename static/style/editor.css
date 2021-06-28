@@ -90,6 +90,7 @@ header .pixelBtn {
 #fileSize {
     width: 100%;
     font-size: 14px;
+    text-decoration: none;
 }
 
 input[type='file'], input[type='submit'] {
