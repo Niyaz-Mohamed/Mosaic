@@ -45,6 +45,11 @@ def handle_exception(e):
     error = {'code':e.code,'name':e.name,'description':e.description}
     return render_template('error.html', error=error)
 
+@app.route('/error')
+def showError():
+    return render_template('error.html', error={'code':': )','name':'no error here','description':'don\'t go peeking at my code'})
+
+
 @app.route('/')
 def baseRedirect():
     return redirect('home')
@@ -82,7 +87,6 @@ def pixelate(img,size,pxFactor):
 
 def makeGreyscale(img):
     img=ImageOps.grayscale(img)
-    print(type(img))
     return img
 
 def customResize(img,newWidth,size):
@@ -108,7 +112,6 @@ def runEditor():
     errorMsg='No file chosen'
 
     imgConfig=request.form
-    print(imgConfig)
     pixDeg=50
     greyscale=False
     doLibUpload=False
@@ -116,7 +119,7 @@ def runEditor():
     if 'uploadToLib' in imgConfig and imgConfig['uploadToLib']=='True':
         doLibUpload=True
 
-    if request.method == 'POST':
+    if request.method == 'POST' :
         
         try:
             if 'file' not in request.files:
@@ -142,42 +145,51 @@ def runEditor():
     script_dir= os.path.dirname(__file__) 
     rel_path= os.path.join(app.config['UPLOAD_FOLDER'],app.config['CURRENT_IMAGE'])
     abs_file_path= os.path.join(script_dir, rel_path)
-    isolatedFilename=app.config['CURRENT_IMAGE'][:-4]
+    isolatedFilename=(app.config['CURRENT_IMAGE'].split('.'))[0]
     abs_file_path_edited=os.path.join(script_dir,isolatedFilename+'_pixelated.png')
 
-    try:
-        if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
+    if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
 
-            #DO IMAGE PROCESSING IF IMAGE EXISTS
-            img=Image.open(abs_file_path,'r')
-            img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
-            img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
-            pixDeg=int(imgConfig['pixDeg'])
-            if 'greyscale' in imgConfig:
-                img=makeGreyscale(img)
-                greyscale=True
-            if os.path.exists(abs_file_path_edited):
-                os.remove(abs_file_path_edited)
-            img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
-            
-            app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
-            app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
+        #DO IMAGE PROCESSING IF IMAGE EXISTS
+        img=Image.open(abs_file_path,'r')
+        img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
+        img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
+        pixDeg=int(imgConfig['pixDeg'])
+        if 'greyscale' in imgConfig:
+            img=makeGreyscale(img)
+            greyscale=True
 
-            if doLibUpload:
-                listImg=json.dumps(np.array(img).tolist())
-                imgName=isolatedFilename+'_pixelated'+'.png'
-                dataPiece={'name':imgName,'data':listImg}
-                app.config['JSON_DATA'].append(dataPiece)
-                with open('data.json','w') as datafile:
-                    json.dump(app.config['JSON_DATA'],datafile)
+        if os.path.exists(abs_file_path_edited):
+            os.remove(abs_file_path_edited)
+        img.save(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png')
         
-        else:
-            app.config['CURRENT_IMAGE']=''
-    
-    except:
-        pass
+        app.config['CURRENT_IMAGE_DATA']['width']=(img.size)[0]
+        app.config['CURRENT_IMAGE_DATA']['height']=(img.size)[1]
+
+        if doLibUpload:
+            listImg=json.dumps(np.array(img).tolist())
+            imgName=isolatedFilename+'_pixelated'+'.png'
+            fileNameList=[]
+            with open('data.json') as datafile:
+                data=json.load(datafile)
+                for file in data:
+                    fileNameList.append(file['name'])
+            if imgName in fileNameList:
+                prefix=0
+                while imgName in fileNameList:
+                    prefix+=1
+                    imgName=isolatedFilename+'_pixelated'+'('+str(prefix)+')'+'.png'
+                    if imgName in fileNameList:
+                        continue
+                    else:
+                        break
+            dataPiece={'name':imgName,'data':listImg}
+            app.config['JSON_DATA'].append(dataPiece)
+            with open('data.json','w') as datafile:
+                json.dump(app.config['JSON_DATA'],datafile)
 
     if not doLibUpload:
+
         return render_template('editor.html',
         filename=isolatedFilename+'_pixelated'+'.png',
         width=app.config['CURRENT_IMAGE_DATA']['width'],
@@ -186,8 +198,9 @@ def runEditor():
         pixDeg=pixDeg,
         errorMsg=errorMsg
         )
+
     else:
-        print('Redirecting')
+        app.config['CURRENT_IMAGE']=''
         return redirect('library')
 
 
@@ -195,6 +208,7 @@ def runEditor():
 def imageLib():
     with open('data.json') as datafile:
         imgData=json.load(datafile)
+        imgData.reverse()
     resultImgData=[]
     for file in imgData:
         img=file['data']
@@ -209,7 +223,6 @@ def imageLib():
 
 @app.route('/library/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
-    script_dir= os.path.dirname(__file__) 
     jsonUploads = os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
     return send_file(jsonUploads, as_attachment=True)
 

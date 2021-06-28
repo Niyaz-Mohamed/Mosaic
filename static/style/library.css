@@ -8,6 +8,7 @@ header {
     margin: 0px;
     padding-bottom: 100px !important;
     padding: 50px;
+    border-bottom:  var(--lego_width) dashed var(--deep_blue);
 }
 
 header div {
@@ -37,7 +38,7 @@ header .pixelBtn {
     height: auto;
 }
 
-#headerTitle {
+#libTitle {
     margin-top: 10px !important;
     font-size: 34px !important;
     letter-spacing: 7px;
@@ -67,17 +68,19 @@ header .pixelBtn {
 
 .odd {
     background: var(--deep_blue);
-    border-bottom: var(--lego_width) solid var(--mod_white);
-    border-top: var(--lego_width) solid var(--mod_white);
+    border-top: var(--deep_red);
 }
 
 .even {
     background: var(--deep_red);
-    border-bottom: var(--lego_width) solid var(--mod_white);
-    border-top: var(--lego_width) solid var(--mod_white);
+    border-top: var(--lego_width) dashed var(--deep_blue);
 }
 
-:host(:last-child) .jsonTab {
+.firstTab {
+    border-top: none !important;
+}
+
+.finalTab {
     border-bottom: var(--lego_width) dashed var(--mod_white) !important;
 }
 

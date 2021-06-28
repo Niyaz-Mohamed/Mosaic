@@ -15,9 +15,14 @@ body {
     padding-left: 100px;
     padding-right: 100px;
     text-align: center;
-    background-color: white;
+    background-color: white !important;
     min-width: 450px;
     min-height: 240px;
+    color: black !important;
+}
+
+#error::after, #error::before {
+    background: white;
 }
 
 #errorCode {
