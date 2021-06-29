@@ -19,6 +19,7 @@ header {
     float: left;
     padding: 50px;
     background: var(--sandpaper);
+    border-bottom: var(--lego_width) dashed var(--deep_red);
 }
 
 #navSection .desc {
@@ -45,6 +46,7 @@ header {
     background: var(--deep_blue);
     color: white;
     font-size: 20px;
+    border-bottom: var(--lego_width) dashed var(--deep_red);
 }
 
 #mainAppDesc {
@@ -58,24 +60,6 @@ header {
     background: var(--deep_red);
     border-bottom: var(--lego_width) dashed var(--mod_white);
     color: white;
-}
-
-.leftBorder {
-    width: 50%;
-    height: auto;
-    content: '';
-    float: left;
-    top: 0 !important;
-    border-top: var(--lego_width) dashed var(--sandpaper);
-}
-
-.rightBorder {
-    width: 50%;
-    height: auto;
-    content: '';
-    float: right;
-    top: 0 !important;
-    border-top: var(--lego_width) dashed var(--deep_blue);
 }
 
 .content p {

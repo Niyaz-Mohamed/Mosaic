@@ -68,20 +68,17 @@ header .pixelBtn {
 
 .odd {
     background: var(--deep_blue);
-    border-top: var(--deep_red);
+    border-bottom: var(--lego_width) dashed var(--deep_red);
 }
 
 .even {
     background: var(--deep_red);
-    border-top: var(--lego_width) dashed var(--deep_blue);
-}
-
-.firstTab {
-    border-top: none !important;
+    border-bottom: var(--lego_width) dashed var(--deep_blue);
 }
 
 .finalTab {
     border-bottom: var(--lego_width) dashed var(--mod_white) !important;
+    border-top: 0px solid !important;
 }
 
 .jsonTab img {
