@@ -246,3 +246,6 @@ def imageLib():
 def download(filename):
     jsonUploads = os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
     return send_file(jsonUploads, as_attachment=True)
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -59,12 +59,30 @@ header {
     min-height: 500px;
     background: var(--deep_red);
     border-bottom: var(--lego_width) dashed var(--mod_white);
+    padding: 100px;
     color: white;
 }
 
 .content p {
-    padding-left: 30vw;
-    padding-right: 30vw;
+    padding-left: 20vw;
+    padding-right: 20vw;
+}
+
+#notable .title {
+    font-size: 42px !important;
+    margin-bottom: 60px !important;
+    margin-top: 30px !important;
+    text-decoration: underline;
+}
+
+#notable .subtitle {
+    font-size: 32px !important;
+    text-decoration: underline;
+}
+
+.descText {
+    font-size: 20px !important;
+    font-weight: 100;
 }
 
 
