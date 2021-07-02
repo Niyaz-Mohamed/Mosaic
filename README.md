@@ -5,7 +5,7 @@ Mosiac
 
 A simple web app to convert normal images to pixel art, built with [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 
-To try the app out, run [main.py](main.py)
+To try the app out, visit [the website!](https://mosaicpix.herokuapp.com/home)
 
 Features 
 --------
