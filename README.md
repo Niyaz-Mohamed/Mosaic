@@ -11,7 +11,7 @@ Features
 --------
 - Convertion of normal images to pixel art  
 - Support for greyscaling images 
-- An Image library for easy image storage and download
+- An Image library for easy image storage and download, as well as looking at the creations of others
 
 Resources used
 
