@@ -118,7 +118,8 @@ def runEditor():
     imgConfig=request.form
     filename=''
     errorMsg='No file chosen'
-    pixDeg=50
+    pixDeg=75
+    width=600
     greyscale=False
     doLibUpload=False
 
@@ -162,10 +163,13 @@ def runEditor():
     if os.path.isfile(app.config['UPLOAD_FOLDER']+app.config['CURRENT_IMAGE']):
 
         #Do image processing if the image exists
+        if 'pixDeg' in imgConfig:
+            pixDeg=int(imgConfig['pixDeg'])
+        if 'newWidth' in imgConfig:
+            width=int(imgConfig['newWidth'])
         img=Image.open(abs_file_path,'r')
-        img=pixelate(img=img,size=img.size,pxFactor=int(imgConfig['pixDeg']))
-        img=customResize(img=img,size=img.size,newWidth=int(imgConfig['newWidth']))
-        pixDeg=int(imgConfig['pixDeg'])
+        img=pixelate(img=img,size=img.size,pxFactor=int(pixDeg))
+        img=customResize(img=img,size=img.size,newWidth=width)
         if 'greyscale' in imgConfig:
             img=makeGreyscale(img)
             greyscale=True
@@ -205,6 +209,9 @@ def runEditor():
             app.config['JSON_DATA'].append(dataPiece)
             with open('data.json','w') as datafile:
                 json.dump(app.config['JSON_DATA'],datafile)
+
+    if not os.path.isfile(app.config['UPLOAD_FOLDER']+isolatedFilename+'_pixelated'+'.png'):
+        isolatedFilename=''
 
     #Render editor if image upload to library is not needed
     if not doLibUpload:
