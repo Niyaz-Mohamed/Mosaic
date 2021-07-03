@@ -144,6 +144,8 @@ def runEditor():
                 
             if file and allowedFile(file.filename):
                 filename=secure_filename(file.filename)
+                file=Image.open(file)
+                file.convert('RGB')
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
                 app.config['CURRENT_IMAGE']=filename
 
