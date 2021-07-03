@@ -16,7 +16,7 @@ Features
 Resources used
 
 - [Aseprite](https://www.aseprite.org/)
-- [Bootstrap Studio (Prototyping)](https://bootstrapstudio.io/)
+- [Heroku](https://dashboard.heroku.com/)
 - [Github](https://github.com/Niyaz-Mohamed/mosiac)
 
 Dependencies
