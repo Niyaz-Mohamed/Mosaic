@@ -253,7 +253,7 @@ def imageLib():
 #Generate file download links
 @app.route('/library/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
-    jsonUploads = os.path.join(app.config['JSON_UPLOAD_FOLDER'],filename)
+    jsonUploads = safe_join(app.config['JSON_UPLOAD_FOLDER'],filename)
     return send_file(jsonUploads, as_attachment=True)
 
 # if __name__ == "__main__":

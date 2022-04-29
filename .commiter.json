@@ -1,0 +1,17 @@
+{
+	"Repo": {
+		"Org": "Niyaz-Mohamed",
+		"Name": "mosaic"
+	},
+	"TemplateData": {
+		"FunctionName": "send_file",
+		"TemplateType": "send_file_join",
+		"Permalink": "https://github.com/Niyaz-Mohamed/mosaic/blob/85da27f1b39a569fe712fd35ffcf38ca433c3444/app.py#L257",
+		"Route": "library",
+		"Param": "filename",
+		"RequestType": "GETRoute",
+		"OtherParams": ""
+	},
+	"CreatePr": true,
+	"Commit": true
+}
